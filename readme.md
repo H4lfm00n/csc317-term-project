@@ -10,11 +10,12 @@ surplus aerospace parts and custom CAD design services.
   - Rigo Sosa
   - Bigyan Shrestha
   - Atharva Shrivastava
-  - [Teammate 4]
+
 
 ## Tech Stack
 
 - Node.js
 - Express.js
 - HTML, CSS, JavaScript (frontend)
+
 
