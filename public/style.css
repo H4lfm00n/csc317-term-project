@@ -1,3 +1,4 @@
+/* ===== RESET ===== */
 *,
 *::before,
 *::after {
@@ -6,66 +7,521 @@
     padding: 0;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #0b1020;
-    color: #f5f5f5;
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.125rem);
     line-height: 1.5;
+    color: #f9fafb;
+    background-color: #000;
 }
 
-.site-header {
+/* ======================================================================================
+   ★★★★★ NEW ORBITCART NAVBAR (Keysight style, dark space theme) ★★★★★
+   ====================================================================================== */
+
+.orbit-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 64px;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+}
+
+/* Left side (logo) */
+.nav-left .logo {
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+/* Center links */
+.nav-center {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-center a {
+    text-decoration: none;
+    color: #dddddd;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-center a:hover {
+    color: #60a5fa;
+}
+
+/* Right side (search, user, cart) */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #0c0f17;
+    border: 1px solid #222;
+    border-radius: 4px;
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    padding: 0.35rem 0.6rem;
+    color: white;
+    width: 180px;
+    font-size: 0.8rem;
+}
+
+.search-box input::placeholder {
+    color: #9ca3af;
+}
+
+.search-box button {
+    background: #1a1f2e;
+    border: none;
+    padding: 0.4rem 0.6rem;
+    color: #9ca3af;
+    cursor: pointer;
+}
+
+.nav-right a {
+    color: #d1d5db;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.nav-right a:hover {
+    color: #60a5fa;
+}
+
+/* Mobile collapse */
+@media (max-width: 768px) {
+    .nav-center {
+        display: none;
+    }
+    .search-box input {
+        width: 100px;
+    }
+}
+
+/* ======================================================================================
+   OFFSET HERO BECAUSE NAVBAR IS NOW FIXED
+   ====================================================================================== */
+.ng-hero {
+    margin-top: 64px !important;
+}
+
+/* ======================================================================================
+   HERO SECTION
+   ====================================================================================== */
+
+.ng-hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+}
+
+.ng-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ng-hero-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.95),
+        rgba(0,0,0,0.5),
+        transparent
+    );
+}
+
+.ng-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 420px;
+    padding-left: 4rem;
+    padding-top: 6rem;
+    color: #ffffff;
+}
+
+.ng-kicker {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 0.75rem;
+    opacity: 0.8;
+}
+
+.ng-hero-content h1 {
+    font-size: clamp(2.4rem, 3.3vw, 3.2rem);
+    font-weight: 700;
+    margin-bottom: 0.85rem;
+}
+
+.ng-subtitle {
+    font-size: 0.95rem;
+    max-width: 24rem;
+    color: #e5e7eb;
+    margin-bottom: 1.5rem;
+}
+
+.ng-btn-primary {
+    display: inline-block;
+    background: #0046ff;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.75rem 1.6rem;
+    font-size: 0.9rem;
+    border-radius: 2px;
+    font-weight: 600;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.ng-btn-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+/* ======================================================================================
+   MAIN CONTENT
+   ====================================================================================== */
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+    background: #020617;
+}
+
+.page {
+    display: none;
+    margin-bottom: 4rem;
+}
+
+.page.page--active {
+    display: block;
+}
+
+/* Headers */
+h2 { margin-bottom: 0.5rem; font-size: 1.6rem; }
+h3 { margin-bottom: 0.25rem; }
+
+/* ======================================================================================
+   CATALOG GRID
+   ====================================================================================== */
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-card {
+    background: #020617;
+    border: 1px solid #111827;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.product-category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #9ca3af;
+}
+
+.product-short {
+    font-size: 0.9rem;
+    color: #e5e7eb;
+}
+
+.product-price {
+    margin-top: 0.25rem;
+    font-weight: 600;
+}
+
+.product-price .unit {
+    font-weight: 400;
+    color: #9ca3af;
+}
+
+/* Buttons */
+.primary-btn,
+.secondary-btn {
+    margin-top: 0.6rem;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.primary-btn { background: #0046ff; color: #fff; }
+.secondary-btn {
+    background: transparent;
+    border-color: #374151;
+    color: #e5e7eb;
+}
+.secondary-btn:hover { border-color: #60a5fa; }
+
+/* ======================================================================================
+   PRODUCT DETAIL
+   ====================================================================================== */
+
+.product-detail-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.product-detail-side {
+    min-width: 200px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: #020617;
+    border: 1px solid #111827;
+}
+
+.detail-price {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+}
+
+/* ======================================================================================
+   FORMS / PROFILE / FAQ
+   ====================================================================================== */
+
+.form-card {
+    background: #020617;
+    border: 1px solid #111827;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.form-card label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.form-card input {
+    width: 100%;
+    padding: 0.45rem 0.6rem;
+    margin-top: 0.25rem;
+    border-radius: 0.25rem;
+    border: 1px solid #374151;
+    background: #020617;
+    color: #e5e7eb;
+}
+
+.two-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.muted { color: #9ca3af; }
+.small { font-size: 0.8rem; }
+
+/* ======================================================================================
+   FOOTER
+   ====================================================================================== */
+
+.site-footer {
+    border-top: 1px solid #111827;
+    padding: 1rem 2rem 2rem;
     text-align: center;
-    padding: 2rem 1rem;
-    background: #11162e;
-    border-bottom: 1px solid #252b4a;
+    font-size: 0.8rem;
+    color: #9ca3af;
+    background: #020617;
 }
 
-.site-header h1 {
+.back-link {
+    background: none;
+    border: none;
+    color: #60a5fa;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+/* ======================================================================================
+   CATEGORY SLIDER (YOUR ORIGINAL CODE — UNCHANGED)
+   ====================================================================================== */
+
+.category-slider {
+    padding: 4.5rem 1rem 4.5rem;
+    background: #050712;
+    color: #f5f5f7;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.category-slider-inner {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+}
+
+.category-arrow {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(0, 0, 0, 0.35);
+    color: #f5f5f7;
+    border-radius: 999px;
+    width: 2.8rem;
+    height: 2.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+    flex-shrink: 0;
+    font-size: 1.6rem;
+}
+
+.category-arrow:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-1px);
+}
+
+.category-viewport {
+    flex: 1;
+    overflow: hidden;
+}
+
+.category-track {
+    display: flex;
+    width: 100%;
+    transform: translateX(0);
+    transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.category-slide {
+    flex: 0 0 100%;
+    padding: 2.5rem 2.75rem;
+    background: radial-gradient(circle at top left, #17243c, #050712 60%);
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 26px 48px rgba(0, 0, 0, 0.6);
+    min-height: 70vh;
+}
+
+.category-content {
+    display: flex;
+    align-items: center;
+    gap: 2.25rem;
+    height: 100%;
+}
+
+.category-text { flex: 1.1; }
+.category-image { flex: 1; max-width: 460px; }
+
+.category-image img {
+    width: 100%;
+    height: 100%;
+    max-height: 460px;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 20px 36px rgba(0, 0, 0, 0.7);
+}
+
+.category-title {
     font-size: 2rem;
     margin-bottom: 0.5rem;
 }
 
-.tagline {
-    font-size: 0.95rem;
-    opacity: 0.8;
+.category-tagline {
+    margin-bottom: 1rem;
+    font-size: 1.02rem;
+    color: rgba(245, 245, 247, 0.9);
 }
 
-.content {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 0 1rem 3rem;
-    display: grid;
-    gap: 1.5rem;
-}
-
-.card {
-    background: #151a33;
-    border-radius: 0.75rem;
-    padding: 1.25rem 1.5rem;
-    border: 1px solid #232947;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-}
-
-.card h2 {
-    margin-bottom: 0.75rem;
-    font-size: 1.25rem;
-}
-
-.card p + p {
-    margin-top: 0.75rem;
-}
-
-.card ul {
+.category-bullets {
     list-style: disc;
-    margin-left: 1.25rem;
-    margin-top: 0.5rem;
+    padding-left: 1.25rem;
+    margin-bottom: 1.3rem;
+    font-size: 0.97rem;
+    color: rgba(245, 245, 247, 0.84);
 }
 
-.site-footer {
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.85rem;
-    border-top: 1px solid #252b4a;
-    background: #11162e;
-    opacity: 0.9;
+.category-cta {
+    padding: 0.65rem 1.5rem;
+    border-radius: 999px;
+    border: none;
+    background: #ff4b6a;
+    color: white;
+    cursor: pointer;
+}
+
+.category-dots {
+    margin-top: 1.1rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.category-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.5);
+    background: transparent;
+}
+
+.category-dot.is-active {
+    background: #ff4b6a;
+    border-color: #ff4b6a;
+    transform: scale(1.15);
+}
+
+/* Mobile tweaks */
+@media (max-width: 900px) {
+    .category-slide { padding: 1.9rem 1.4rem; min-height: auto; }
+    .category-content { flex-direction: column; }
+    .category-image img { max-height: 280px; }
+}
+
+@media (max-width: 768px) {
+    .category-arrow { display: none; }
+}
+
+/* Hide sections dynamically */
+.ng-hero.is-hidden,
+.category-slider.is-hidden {
+    display: none;
 }

@@ -2,51 +2,325 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>OrbitCart Aerospace – About</title>
+    <title>OrbitCart Aerospace Wholesale</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
 </head>
 <body>
-    <header class="site-header">
-        <h1>OrbitCart Aerospace</h1>
-        <p class="tagline">Surplus aerospace parts & custom CAD services</p>
-    </header>
 
-    <main class="content">
-        <section class="card">
-            <h2>About Our Project</h2>
-            <p>
-                OrbitCart Aerospace is an e-commerce concept where customers can
-                browse surplus aerospace components and request custom CAD models
-                for specialized parts.
+<!-- ★★★★★ NEW FIXED KEYSIGHT-STYLE NAVBAR ★★★★★ -->
+<nav class="orbit-navbar">
+    <div class="nav-left">
+        <a href="/" class="logo">ORBITCART</a>
+    </div>
+
+    <div class="nav-center">
+        <a href="/products">Products</a>
+        <a href="/categories">Categories</a>
+        <a href="/about">About</a>
+        <a href="/support">Support</a>
+    </div>
+
+    <div class="nav-right">
+        <div class="search-box">
+            <input type="text" placeholder="Search components">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+
+        <a href="/profile"><i class="fas fa-user"></i></a>
+        <a href="/checkout"><i class="fas fa-shopping-cart"></i></a>
+    </div>
+</nav>
+<!-- ★★★★★ END NAVBAR ★★★★★ -->
+
+
+<!-- Northrop-style hero with background video -->
+<section class="ng-hero" id="home-hero">
+    <video class="ng-hero-video" autoplay muted loop playsinline>
+        <source src="assets/satellite_x.mp4" type="video/mp4">
+    </video>
+    <div class="ng-hero-panel"></div>
+
+    <div class="ng-hero-content">
+        <p class="ng-kicker">Group 4 · OrbitCart</p>
+        <h1>Microscopic Giants of OrbitCart.</h1>
+        <p class="ng-subtitle">
+            An aerospace wholesaler and CAD-on-demand storefront that connects
+            surplus components, test hardware, and NX models with student
+            engineers and makers.
+        </p>
+        <a href="#" data-section="catalog" class="ng-btn-primary js-nav-link">
+            Explore Components
+        </a>
+    </div>
+</section>
+
+<!-- ▼▼▼ CATEGORY SLIDER SECTION ▼▼▼ -->
+<section class="category-slider" aria-label="Featured OrbitCart categories">
+    <div class="category-slider-inner">
+        <button class="category-arrow category-arrow--prev" type="button" aria-label="Previous category">
+            ‹
+        </button>
+
+        <div class="category-viewport">
+            <div class="category-track" id="category-track">
+                <!-- Slide 1: Flight Platforms -->
+                <article class="category-slide" data-index="0" data-category="flight">
+                    <div class="category-content">
+                        <div class="category-text">
+                            <h2 class="category-title">Flight Platforms</h2>
+                            <p class="category-tagline">
+                                Jet fighters, launch vehicles, smallsats, and UAV platforms
+                                for simulation, visualization, and integration labs.
+                            </p>
+                            <ul class="category-bullets">
+                                <li>Complete satellite &amp; rocket CAD assemblies</li>
+                                <li>Airframes for CFD and loads analysis</li>
+                                <li>Payload buses and deployment mechanisms</li>
+                            </ul>
+                            <button class="category-cta" data-section="catalog">
+                                Browse Flight Hardware
+                            </button>
+                        </div>
+                        <div class="category-image">
+                            <img src="assets/flightPlatforms.png" alt="OrbitCart flight platforms render">
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Slide 2: Electronics & Test -->
+                <article class="category-slide" data-index="1" data-category="electronics">
+                    <div class="category-content">
+                        <div class="category-text">
+                            <h2 class="category-title">Electronics &amp; Test</h2>
+                            <p class="category-tagline">
+                                Keysight-style oscilloscopes, programmable power supplies,
+                                RF front-ends, and avionics interfaces.
+                            </p>
+                            <ul class="category-bullets">
+                                <li>Lab-grade scopes and power analyzers</li>
+                                <li>PXI &amp; ARINC/1553 avionics cards</li>
+                                <li>Ground support &amp; telemetry rigs</li>
+                            </ul>
+                            <button class="category-cta" data-section="catalog">
+                                Explore Lab Equipment
+                            </button>
+                        </div>
+                        <div class="category-image">
+                            <img src="assets/Oscilloscope.png" alt="Lab rack with test equipment">
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Slide 3: CAD, Manufacturing & Tooling -->
+                <article class="category-slide" data-index="2" data-category="manufacturing">
+                    <div class="category-content">
+                        <div class="category-text">
+                            <h2 class="category-title">CAD, Manufacturing &amp; Tooling</h2>
+                            <p class="category-tagline">
+                                NX CAD models, production drawings, and tool &amp; die design
+                                for aerospace manufacturing labs.
+                            </p>
+                            <ul class="category-bullets">
+                                <li>NX/Blender model packs with drawings</li>
+                                <li>Machining &amp; 3D-print ready geometry</li>
+                                <li>Tool &amp; die packages for stamping &amp; molds</li>
+                            </ul>
+                            <button class="category-cta" data-section="catalog">
+                                View CAD &amp; Tooling Services
+                            </button>
+                        </div>
+                        <div class="category-image">
+                            <img src="assets/Robotics.png" alt="Tool and die concept for aerospace brackets">
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <button class="category-arrow category-arrow--next" type="button" aria-label="Next category">
+            ›
+        </button>
+    </div>
+
+    <div class="category-dots" aria-hidden="true">
+        <button class="category-dot is-active" data-index="0"></button>
+        <button class="category-dot" data-index="1"></button>
+        <button class="category-dot" data-index="2"></button>
+    </div>
+</section>
+<!-- ▲▲▲ END CATEGORY SLIDER SECTION ▲▲▲ -->
+
+<main>
+    <!-- Products / Catalog -->
+    <section id="catalog" class="page page--active">
+        <h2>Products</h2>
+        <p class="page-intro">
+            Browse over 20 aerospace and test-lab components, plus CAD-on-demand services.
+        </p>
+        <div id="catalog-grid" class="catalog-grid">
+            <!-- JS will fill cards here -->
+        </div>
+    </section>
+
+    <!-- Product Detail -->
+    <section id="product-detail" class="page">
+        <button class="back-link" data-section="catalog">← Back to catalog</button>
+        <div class="product-detail-wrapper">
+            <div>
+                <h2 id="detail-name">Product Name</h2>
+                <p id="detail-category" class="muted"></p>
+                <p id="detail-description">
+                    Select a product to see full details.
+                </p>
+            </div>
+            <div class="product-detail-side">
+                <p id="detail-price" class="detail-price">$0.00</p>
+                <button id="detail-add-to-cart" class="primary-btn">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout -->
+    <section id="checkout" class="page">
+        <h2>Checkout</h2>
+        <div id="cart-summary"></div>
+
+        <form id="checkout-form" class="form-card">
+            <h3>Payment Details (Mock)</h3>
+            <label>
+                Name on Card
+                <input type="text" required>
+            </label>
+            <label>
+                Card Number
+                <input type="text" required>
+            </label>
+            <label>
+                Expiration
+                <input type="text" placeholder="MM/YY" required>
+            </label>
+            <label>
+                CVV
+                <input type="text" required>
+            </label>
+            <button type="submit" class="primary-btn">Place Mock Order</button>
+            <p class="muted small">
+                This is a class demo only. No real payment is processed.
             </p>
+        </form>
+    </section>
+
+    <!-- Login / Registration -->
+    <section id="login" class="page">
+        <h2>Login / Register</h2>
+        <div class="two-col">
+            <form id="login-form" class="form-card">
+                <h3>Login</h3>
+                <label>
+                    Email
+                    <input type="email" required>
+                </label>
+                <label>
+                    Password
+                    <input type="password" required>
+                </label>
+                <button type="submit" class="primary-btn">Login (Mock)</button>
+            </form>
+
+            <form id="register-form" class="form-card">
+                <h3>Register</h3>
+                <label>
+                    Name
+                    <input type="text" required>
+                </label>
+                <label>
+                    Email
+                    <input type="email" required>
+                </label>
+                <label>
+                    Password
+                    <input type="password" required>
+                </label>
+                <button type="submit" class="primary-btn">Create Account</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- User Profile -->
+    <section id="profile" class="page">
+        <h2>User Profile</h2>
+        <p class="muted">
+            For this class project, profile data is mock only.
+        </p>
+        <div class="form-card">
+            <p><strong>Name:</strong> Demo User</p>
+            <p><strong>Email:</strong> demo@orbitcart.aero</p>
+            <p><strong>Favorite categories:</strong> Sensors, CAD, Avionics</p>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="page">
+        <h2>About OrbitCart</h2>
+        <p class="page-intro">
+            OrbitCart is a term project for CSC 317, built by <strong>Group 4</strong>.
+        </p>
+
+        <h3>Team Members</h3>
+        <ul class="team-list">
+            <li>Rigo Sosa – Placeholder</li>
+            <li>Bigyan Shrestha – Placeholder</li>
+            <li>Atharva Shrivastava – Placeholder</li>
+            
+        </ul>
+
+        <h3>Project Description</h3>
+        <p>
+            OrbitCart simulates a wholesaler for aerospace and high-performance lab
+            components. The site combines a storefront catalog, product detail pages,
+            mock checkout, user profiles, and CAD-on-demand “services” to demonstrate
+            HTML, CSS, JavaScript, and Node/Express.
+        </p>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="page">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+            <h3>Is OrbitCart a real store?</h3>
+            <p>No. It is a student project for CSC 317, not a real business.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Can I actually order aerospace parts here?</h3>
             <p>
-                Our term project will eventually include product listings,
-                a shopping cart, and a request form for CAD design services.
+                No orders are processed. All products and payments are mock data
+                so we can focus on front-end and back-end skills.
             </p>
-        </section>
-
-        <section class="card">
-            <h2>Team Group 12</h2>
-            <ul>
-                <li>Rigo Sosa</li>
-                <li>Bigyan Shrestha</li>
-                <li>[Teammate 3]</li>
-                <li>[Teammate 4]</li>
-            </ul>
-        </section>
-
-        <section class="card">
-            <h2>Login / Registration (Coming Soon)</h2>
+        </div>
+        <div class="faq-item">
+            <h3>What technologies does OrbitCart use?</h3>
             <p>
-                In future milestones, we will add a full login/registration
-                flow so users can create accounts and manage orders.
+                HTML, CSS, vanilla JavaScript, Node.js, and Express.js, with a
+                Northrop Grumman–style video hero on the home page.
             </p>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer class="site-footer">
-        <p>&copy; 2025 OrbitCart Aerospace – CSC 317 Term Project</p>
-    </footer>
+    <!-- Search Results -->
+    <section id="search-results" class="page">
+        <h2>Search Results</h2>
+        <p id="search-summary" class="page-intro"></p>
+        <div id="search-grid" class="catalog-grid"></div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>© OrbitCart · Group 4 · CSC 317 Term Project</p>
+</footer>
+
 </body>
 </html>
