@@ -5,6 +5,7 @@
 
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,30 +16,64 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Session configuration
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'orbitcart-secret-key-change-in-production',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false, // Set to true if using HTTPS
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    }
+}));
+
 // Public static folder (CSS, images, JS)
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Template engine setup (EJS)
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'public', 'views'));
 app.set('view engine', 'ejs');
 
 // -----------------------------------------
-// 2. ROUTES (Controllers)
+// 2. AUTHENTICATION MIDDLEWARE
 // -----------------------------------------
+// Middleware to check if user is authenticated
+function requireAuth(req, res, next) {
+    if (req.session && req.session.userId) {
+        return next();
+    }
+    res.status(401).json({ error: 'Authentication required' });
+}
+
+// Middleware to make user info available to templates
+app.use((req, res, next) => {
+    res.locals.user = req.session.userId ? {
+        id: req.session.userId,
+        username: req.session.username
+    } : null;
+    next();
+});
+
+// -----------------------------------------
+// 3. ROUTES (Controllers)
+// -----------------------------------------
+const authRouter = require('./routes/auth');
 const productsRouter = require('./routes/products');
 const cartRouter = require('./routes/cart');
 const customersRouter = require('./routes/customers');
 
 // Mount route modules
+app.use('/api/auth', authRouter);
 app.use('/products', productsRouter);
 app.use('/cart', cartRouter);
 app.use('/customers', customersRouter);
 
 // -----------------------------------------
-// 3. HOME PAGE (rendered template)
+// 4. HOME PAGE (rendered template)
 // -----------------------------------------
 app.get('/', (req, res) => {
-  res.render('index'); // views/index.ejs
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // -----------------------------------------

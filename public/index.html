@@ -28,8 +28,9 @@
             <button><i class="fas fa-search"></i></button>
         </div>
 
-        <a href="/profile"><i class="fas fa-user"></i></a>
-        <a href="/checkout"><i class="fas fa-shopping-cart"></i></a>
+        <a href="#" data-section="login" class="js-nav-link" style="font-size: 0.9rem; padding: 0.4rem 0.8rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;">Login</a>
+        <a href="#" data-section="profile" class="js-nav-link"><i class="fas fa-user"></i></a>
+        <a href="#" data-section="checkout" class="js-nav-link"><i class="fas fa-shopping-cart"></i></a>
     </div>
 </nav>
 <!-- ★★★★★ END NAVBAR ★★★★★ -->
@@ -222,28 +223,32 @@
                 <h3>Login</h3>
                 <label>
                     Email
-                    <input type="email" required>
+                    <input type="email" name="email" required>
                 </label>
                 <label>
                     Password
-                    <input type="password" required>
+                    <input type="password" name="password" required>
                 </label>
-                <button type="submit" class="primary-btn">Login (Mock)</button>
+                <button type="submit" class="primary-btn">Login</button>
             </form>
 
             <form id="register-form" class="form-card">
                 <h3>Register</h3>
                 <label>
                     Name
-                    <input type="text" required>
+                    <input type="text" name="name" required>
+                </label>
+                <label>
+                    Username
+                    <input type="text" name="username" required>
                 </label>
                 <label>
                     Email
-                    <input type="email" required>
+                    <input type="email" name="email" required>
                 </label>
                 <label>
                     Password
-                    <input type="password" required>
+                    <input type="password" name="password" required>
                 </label>
                 <button type="submit" class="primary-btn">Create Account</button>
             </form>

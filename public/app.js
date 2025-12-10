@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSearch();
     setupForms();
     loadProducts();
+    checkAuthStatus(); // Check if user is already logged in
 });
 
 function setupNav() {
@@ -183,25 +184,160 @@ function renderSearchResults(data) {
     });
 }
 
+// Authentication state
+let currentUser = null;
+
+// Check authentication status on page load
+async function checkAuthStatus() {
+    try {
+        const res = await fetch('/api/auth/status');
+        const data = await res.json();
+        if (data.authenticated) {
+            currentUser = data.user;
+            updateUIForAuth();
+        } else {
+            currentUser = null;
+            updateUIForAuth();
+        }
+    } catch (err) {
+        console.error('Error checking auth status:', err);
+    }
+}
+
+// Update UI based on authentication status
+function updateUIForAuth() {
+    const profileSection = document.getElementById('profile');
+    if (profileSection && currentUser) {
+        profileSection.innerHTML = `
+            <h2>User Profile</h2>
+            <div class="form-card">
+                <p><strong>Name:</strong> ${currentUser.name || currentUser.username}</p>
+                <p><strong>Username:</strong> ${currentUser.username}</p>
+                <p><strong>Email:</strong> ${currentUser.email}</p>
+                <button id="logout-btn" class="primary-btn">Logout</button>
+            </div>
+        `;
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', handleLogout);
+        }
+    }
+}
+
+// Handle login
+async function handleLogin(email, password) {
+    try {
+        const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+        
+        if (data.success) {
+            currentUser = data.user;
+            updateUIForAuth();
+            showSection('profile');
+            return { success: true, message: 'Login successful!' };
+        } else {
+            return { success: false, message: data.message || 'Login failed' };
+        }
+    } catch (err) {
+        console.error('Login error:', err);
+        return { success: false, message: 'Network error. Please try again.' };
+    }
+}
+
+// Handle registration
+async function handleRegister(username, email, password, name) {
+    try {
+        const res = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, email, password, name })
+        });
+
+        const data = await res.json();
+        
+        if (data.success) {
+            currentUser = data.user;
+            updateUIForAuth();
+            showSection('profile');
+            return { success: true, message: 'Registration successful!' };
+        } else {
+            return { success: false, message: data.message || 'Registration failed' };
+        }
+    } catch (err) {
+        console.error('Registration error:', err);
+        return { success: false, message: 'Network error. Please try again.' };
+    }
+}
+
+// Handle logout
+async function handleLogout() {
+    try {
+        const res = await fetch('/api/auth/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await res.json();
+        
+        if (data.success) {
+            currentUser = null;
+            updateUIForAuth();
+            showSection('catalog');
+            alert('Logged out successfully');
+        } else {
+            alert('Logout failed. Please try again.');
+        }
+    } catch (err) {
+        console.error('Logout error:', err);
+        alert('Network error during logout.');
+    }
+}
+
 function setupForms() {
-    // mock login/register/checkout (just prevent reload and log)
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
     const checkoutForm = document.getElementById('checkout-form');
 
     if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            alert('Mock login successful (no real auth).');
-            showSection('profile');
+            const email = loginForm.querySelector('input[name="email"]').value;
+            const password = loginForm.querySelector('input[name="password"]').value;
+            
+            const result = await handleLogin(email, password);
+            if (result.success) {
+                alert(result.message);
+            } else {
+                alert(result.message);
+            }
         });
     }
 
     if (registerForm) {
-        registerForm.addEventListener('submit', (e) => {
+        registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            alert('Mock account created.');
-            showSection('profile');
+            const name = registerForm.querySelector('input[name="name"]').value;
+            const username = registerForm.querySelector('input[name="username"]').value;
+            const email = registerForm.querySelector('input[name="email"]').value;
+            const password = registerForm.querySelector('input[name="password"]').value;
+            
+            const result = await handleRegister(username, email, password, name);
+            if (result.success) {
+                alert(result.message);
+            } else {
+                alert(result.message);
+            }
         });
     }
 
