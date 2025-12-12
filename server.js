@@ -127,6 +127,12 @@ app.use((req, res) => {
 // -----------------------------------------
 // 7. START SERVER
 // -----------------------------------------
-app.listen(PORT, () => {
-  console.log(`OrbitCart server running at http://localhost:${PORT}`);
-});
+// Only start server if not in serverless environment
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`OrbitCart server running at http://localhost:${PORT}`);
+  });
+}
+
+// Export app for serverless environments
+module.exports = app;
